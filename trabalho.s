@@ -49,6 +49,11 @@ main:
     lea rdx, [rip + vetor_len]
     call fscanf@plt
     
+    // teste
+    //lea rdi, [rip + teste]
+    //mov rsi, [rip + vetor_len]
+    //call printf@plt
+    
     
     /////// ALOCAR ARRAY ///////
     
@@ -98,6 +103,11 @@ main:
         
     ler_paleta_fim:    
     
+        //// print hexa lido /////
+        //lea rdi, [rip + teste_hexa]
+        //mov rsi, [vetor + 2]
+        
+        //call printf@plt
     /////////////////########FIM PALETA######///////
     
      //////// leitura das quantidade de imagens //////
@@ -106,9 +116,16 @@ main:
     lea rdx, [rip + imagens]
     call fscanf@plt
     
+    // teste imagens
+    //lea rdi, [rip + teste]
+    //mov rsi, [rip + imagens]
+    //call printf@plt
+    
+    
+    
     //////// salvando em rbx a quantidade de imagens /////////
     // int i = imagens
-    mov rbx, [rip + imagens]
+    mov rbx, 1
     mov ecx, [rip + imagens]
     
     .ler_img:
@@ -139,6 +156,11 @@ main:
         
         //restaurando ecx 
         mov ecx, [rbp - 8]
+        
+        // teste colunas
+        //lea rdi, [rip + teste]
+        //mov rsi, [rip + colunas]
+        //call printf@plt
         
         //restaurando ecx 
         mov ecx, [rbp - 8]
@@ -174,13 +196,34 @@ main:
                      
                     // restaurando ecx           
                     mov ecx, [rbp - 32]
-                    mov r12, [rip + pixel]
-                 
+                    //////////////////////
+                    //teste colunas
+                    //lea rdi, [rip + teste_hexa_unitario]
+                    //mov rsi, [pixel]
+                    //call printf@plt
+                    
+                    
+                    
+                    //lea rdi, [rip + teste_inteiro]
+                    //mov rsi, r12
+                    //call printf@plt
+                    
                     mov rdi, [rip + ptr_escrita]
                     lea rsi, [rip + char]
                     lea rdx, [rip + vetor]
-                    mov rdx, [rdx + r12]
-                
+                    mov rax, [rip + pixel]
+                    mov rdx, [rdx + rax]
+                    //mov rdx, [rip + vetor]
+                    //add rdx, r12
+                    
+                    ////////
+                    
+                    //// print hexa lido /////
+                    //lea rdi, [rip + teste_hexa_unitario]
+                    //lea rsi, [rip + vetor]
+                    //mov rsi, [rsi + r12]
+                    
+                    //call printf@plt
                     call fprintf@plt
                     
                     
@@ -206,7 +249,7 @@ main:
         
         
         /////// pulando para leitura da proxima imagem caso exista //////
-        dec rbx
+        inc rbx
         ///// restaurando ecx
         mov ecx, [rbp - 8]
         dec ecx
@@ -271,12 +314,15 @@ leitura:
 escrita:
     .string "w"
     
+    
+.section .bss
+    
+vetor:
+    .8byte
+    
 .section .data
 
 vetor_len:
-    .8byte 0
-    
-vetor:
     .8byte 0
     
 imagens:
